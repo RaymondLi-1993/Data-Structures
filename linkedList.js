@@ -8,7 +8,7 @@ class Node {
 class singlyLinkedList {
   constructor() {
     this.head = null;
-    this.tail = this.head;
+    this.tail = null;
     this.length = 0;
   }
 
@@ -77,7 +77,60 @@ class singlyLinkedList {
       current = current.next;
       count++;
     }
-    console.log(current);
+    return current;
+  }
+
+  set(index, val) {
+    const node = this.get(index);
+    if (!node) return false;
+    node.val = val;
+    return true;
+  }
+
+  insert(index, val) {
+    const newNode = new Node(val);
+    if (index <= 0) {
+      this.unshift(val);
+      return this;
+    }
+    if (index > this.length) {
+      this.append(val);
+      return this;
+    }
+    let prev = this.get(index - 1);
+    let temp = prev.next;
+
+    prev.next = newNode;
+    newNode.next = temp;
+    this.length++;
+  }
+
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === this.length - 1) return this.pop();
+    if (index === 0) return this.shift();
+    let prevNode = this.get(index - 1);
+    let current = prevNode.next;
+    prevNode.next = current.next;
+    this.length--;
+    console.log(this);
+    return current;
+  }
+
+  reverse() {
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+    let prev = null;
+    let next = node.next;
+    while (node) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      console.log(node.val);
+      node = next;
+    }
+    console.log(this);
   }
 }
 
@@ -86,6 +139,4 @@ const newList = new singlyLinkedList();
 newList.append(`Hello`);
 newList.append(`BYE`);
 newList.append(`farewell!`);
-newList.unshift(`pop`);
-newList.unshift(`Hi There!`);
-newList.get(4);
+newList.reverse();
