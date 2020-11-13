@@ -67,12 +67,25 @@ class singlyLinkedList {
       return this;
     }
   }
+
+  get(val) {
+    let count = 0;
+    let current = this.head;
+    if (val < 0 || val >= this.length) return undefined;
+
+    while (count < val) {
+      current = current.next;
+      count++;
+    }
+    console.log(current);
+  }
 }
 
 const newList = new singlyLinkedList();
 
-// newList.append(`Hello`);
-// newList.append(`BYE`);
-// newList.append(`farewell!`);
-console.log(newList.unshift(`pop`));
-console.log(newList.unshift(`Hi There!`));
+newList.append(`Hello`);
+newList.append(`BYE`);
+newList.append(`farewell!`);
+newList.unshift(`pop`);
+newList.unshift(`Hi There!`);
+newList.get(4);
