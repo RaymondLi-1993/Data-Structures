@@ -6,43 +6,70 @@ class Node {
   }
 }
 
-class BST {
+class BinarySearchTree {
   constructor(val) {
     this.root = new Node(val);
     this.size = 1;
   }
 
   insert(val) {
-    this.size++;
     const newNode = new Node(val);
-    const insertNode = node => {
+    if (!this.root) this.root = newNode;
+
+    let helper = node => {
       if (val < node.val) {
-        !node.left ? (node.left = newNode) : insertNode(node.left);
-      } else if (val > node.val) {
-        !node.right ? (node.right = newNode) : insertNode(node.right);
+        if (!node.left) {
+          node.left = newNode;
+        } else {
+          helper(node.left);
+        }
+      } else {
+        if (val > node.val) {
+          if (!node.right) {
+            node.right = newNode;
+          } else {
+            helper(node.right);
+          }
+        }
       }
     };
-    insertNode(this.root);
+    helper(this.root);
+    this.size += 1;
+    return this;
   }
 
-  dfsPre() {
-    let data = [];
+  find(val) {
     let current = this.root;
 
-    let dfs = current => {
-      if (current.left) dfs(current.left);
-      data.push(current.val);
-      if (current.right) dfs(current.right);
+    while (current) {
+      if (val === current.val) {
+        return true;
+      } else if (val < current.val) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return false;
+  }
+
+  DFS() {
+    let result = [];
+    let current = this.root;
+
+    const traverse = node => {
+      if (node.left) traverse(node.left);
+      result.push(node.val);
+      if (node.right) traverse(node.right);
     };
-    dfs(current);
-    return data;
+    traverse(current);
+    return result;
   }
 }
 
-const balancedBst = new BST(10);
+const BST = new BinarySearchTree(10);
 
-balancedBst.insert(100);
-balancedBst.insert(70);
-balancedBst.insert(5);
-balancedBst.insert(2);
-console.log(balancedBst.dfsPre());
+BST.insert(12);
+BST.insert(6);
+BST.insert(55);
+console.log(BST.DFS());
