@@ -2,6 +2,7 @@ const List = require("./linkedList");
 
 const newList = new List();
 
-newList.push(`hello!`);
+newList.push(1);
+newList.push(2);
 
 console.log(newList);

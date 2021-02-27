@@ -154,30 +154,20 @@ class Node {
 const list = class SinglyLinkedList {
   constructor() {
     this.head = null;
-    this.tail = null;
+    this.tail = this.head;
     this.length = 0;
   }
 
   push(val) {
-    const node = new Node(val);
+    const newNode = new Node(val);
     if (!this.head) {
-      this.head = node;
+      this.head = newNode;
       this.tail = this.head;
     } else {
-      this.tail.next = node;
-      this.tail = node;
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
     this.length++;
-    return this;
-  }
-
-  checkVals() {
-    let current = this.head;
-
-    while (current) {
-      console.log(current.val);
-      current = current.next;
-    }
     return this;
   }
 };
