@@ -29,6 +29,10 @@ module.exports = class Stack {
   }
 
   pop() {
+    if (!this.head) return undefined;
+    if (this.size === 1) {
+      this.last = null;
+    }
     let popped = this.first;
     this.first = this.first.next;
     this.size--;
